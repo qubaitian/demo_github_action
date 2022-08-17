@@ -1,8 +1,6 @@
 name: GitHub Actions Build and Deploy Demo
-on:
-  push:
-    branches:
-      - master
+on: push
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,7 +11,6 @@ jobs:
       - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@master
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: build
           BUILD_SCRIPT: npm install && npm run build
