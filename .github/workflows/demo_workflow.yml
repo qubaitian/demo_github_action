@@ -1,6 +1,16 @@
 name: GitHub Actions Demo
 on: [push]
+
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: PyInstaller Linux amd64
+        id: amd64
+        uses: action-python/pyinstaller-py3.8@amd64
+        with:
+          path: .
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +25,5 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: |
-          apt install python3
       - run: |
           python3 --version
