@@ -6,14 +6,8 @@ jobs:
     name: My Job
     runs-on: ubuntu-latest
     steps:
-      - name: Print a greeting
-        env:
-          MY_VAR: Hi there! My name is
-          FIRST_NAME: Mona
-          MIDDLE_NAME: The
-          LAST_NAME: Octocat
-        run: |
-          echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
-      - name: print ls
-        run: |
-          ls
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.DEMO_GITHUB_ACTION }}
+        issue-message: '# Message with markdown.\nThis is the message that will be displayed on users' first issue.'
+        pr-message: 'Message that will be displayed on users' first pr. Look, a `code block` for markdown.'
