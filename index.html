@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to NCF’s documentation! &#8212; financial library 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NCF" href="modules.html" />
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="NCF"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">financial library 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to NCF’s documentation!</a></li>
+      </ul>
+    </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+
+  <section id="welcome-to-ncf-s-documentation">
+<h1>Welcome to NCF’s documentation!<a class="headerlink" href="#welcome-to-ncf-s-documentation" title="Permalink to this headline">¶</a></h1>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="#installation">Installation</a></p></li>
+<li><p><a class="reference external" href="#api">RESTful API</a></p></li>
+<li><p><a class="reference external" href="#usage">Usage</a></p></li>
+<li><p><a class="reference external" href="#api">API</a></p></li>
+<li><p><a class="reference external" href="#support">Support</a></p></li>
+<li><p><a class="reference external" href="#documentation">Documentation</a></p></li>
+</ul>
+</section>
+<section id="source-location">
+<h2>Source location<a class="headerlink" href="#source-location" title="Permalink to this headline">¶</a></h2>
+<p>Hosted on Gitlab: <a class="reference external" href="https://gitlab.newbanker.cn/xuedashan/product_engine">https://gitlab.newbanker.cn/xuedashan/product_engine</a></p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sh</span> <span class="n">start</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</section>
+<section id="restful-api">
+<h2>RESTful API<a class="headerlink" href="#restful-api" title="Permalink to this headline">¶</a></h2>
+<dl class="http post">
+<dt class="sig sig-object http" id="post--quant-indicator-windows_rolling">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/quant/indicator/windows_rolling</span></span><a class="headerlink" href="#post--quant-indicator-windows_rolling" title="Permalink to this definition">¶</a></dt>
+<dd><p>滑动窗口金融指标</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prices</strong> – dict
+资产净值序列，其中支持多资产批量计算</p></li>
+<li><p><strong>window_days</strong> – int, optional
+窗口长度，单位天,默认365</p></li>
+<li><p><strong>indicators</strong> – <p>list
+指标列表,支持:</p>
+<ul>
+<li><p>std: 滚动标准差(波动率)</p></li>
+<li><p>std_describe: 滚动标准差统计</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;prices&quot;</span><span class="p">:{</span>
+        <span class="s2">&quot;001001&quot;</span><span class="p">:{</span>
+        <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span><span class="mf">2.1</span><span class="p">,</span>
+        <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span><span class="mf">2.11</span><span class="p">,</span>
+        <span class="o">...</span>
+        <span class="s2">&quot;2021-10-25&quot;</span><span class="p">:</span><span class="mf">2.25</span><span class="p">,</span>
+        <span class="s2">&quot;2021-11-20&quot;</span><span class="p">:</span><span class="mf">2.30</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;indicators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">,</span><span class="s2">&quot;std_describe&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;window_days&quot;</span><span class="p">:</span> <span class="mi">365</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;001001&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="mf">0.0</span><span class="p">,</span>
+                <span class="mf">0.0</span><span class="p">,</span>
+                <span class="o">...</span>
+                <span class="mf">0.006573727160429513</span><span class="p">,</span>
+                <span class="mf">0.007130874876708629</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;std_describe&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;001001&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;25%&quot;</span><span class="p">:</span> <span class="mf">0.006424904353286526</span><span class="p">,</span>
+                <span class="s2">&quot;50%&quot;</span><span class="p">:</span> <span class="mf">0.007415784302278105</span><span class="p">,</span>
+                <span class="s2">&quot;75%&quot;</span><span class="p">:</span> <span class="mf">0.00829834682337784</span><span class="p">,</span>
+                <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mf">51.0</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="mf">0.00936752431913605</span><span class="p">,</span>
+                <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="mf">0.0063284874926345085</span><span class="p">,</span>
+                <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="mf">0.003003284691488879</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;windows&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;2021-10-01&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-10-02&quot;</span><span class="p">,</span>
+            <span class="o">...</span>
+            <span class="s2">&quot;2021-11-19&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-11-20&quot;</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1641904227</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--quant-indicator-indicators">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/quant/indicator/indicators</span></span><a class="headerlink" href="#post--quant-indicator-indicators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Support calculation of various financial indicators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prices</strong> – dict
+Fund net value sequence</p></li>
+<li><p><strong>benchmark</strong> – dict
+Benchmark net value sequence, optional</p></li>
+<li><p><strong>fill_method</strong> – <p>str, default ‘None’
+Method to use for filling holes in {prices}/{benchmark} Series</p>
+<ul>
+<li><p>ffill: propagate last valid observation forward to next valid back</p></li>
+<li><p>fill / bfill: use next valid observation to fill gap.</p></li>
+</ul>
+</p></li>
+<li><p><strong>indicators</strong> – <p>list
+金融指标</p>
+<ul>
+<li><p>returns: 每日收益序列</p></li>
+<li><p>cum_returns: 每日累计净值序列</p></li>
+<li><p>return_describe: 每日收益统计</p></li>
+<li><p>ret_t: 区间累计收益率</p></li>
+<li><p>ret_a: 区间年化收益率</p></li>
+<li><p>vol_t: 区间波动率</p></li>
+<li><p>vol_a: 区间年化波动率</p></li>
+<li><p>mdd: 区间最大回撤</p></li>
+<li><p>mdd_start: 最大回撤起始索引</p></li>
+<li><p>mdd_end: 最大回撤终止索引</p></li>
+<li><p>mdd_recovery: 最大回撤收复失地日</p></li>
+<li><p>dd_history: 回撤历史</p></li>
+<li><p>mdd_days: 最大回撤天数:从高点到低点的天数</p></li>
+<li><p>mdd_recovery_days: 最大回撤恢复天数</p></li>
+<li><p>after_mdd_return: 最大回撤后到现在的收益</p></li>
+<li><p>mr: 区间最大涨幅</p></li>
+<li><p>mr_start: 最大涨幅起始索引</p></li>
+<li><p>mr_end: 最大涨幅终止索引</p></li>
+<li><p>mr_fall: 最大涨幅重新抹平日</p></li>
+<li><p>mr_days: 最大涨幅天数</p></li>
+<li><p>rise_history: 增长历史</p></li>
+<li><p>mr_falling_days: 最大涨幅回落天数</p></li>
+<li><p>sharpe: 夏普比率</p></li>
+<li><p>calmar: 卡玛比率</p></li>
+<li><p>info: 信息比率</p></li>
+<li><p>sortino: sortino</p></li>
+<li><p>downside_risk: 下行风险</p></li>
+<li><p>annual_downside_risk: 年化下行风险</p></li>
+<li><p>alpha: 阿尔法, 注：需要基准数据</p></li>
+<li><p>beta: beta系数，注：需要基准数据</p></li>
+<li><p>treynor: 特雷诺比率，注：需要基准数据</p></li>
+<li><p>passive_influence_ratio: ，注：需要基准数据</p></li>
+<li><p>active_influence_ratio:，注：需要基准数据</p></li>
+</ul>
+</p></li>
+<li><p><strong>periods</strong> – list
+Support D,W,M,Y,2W,7D…thisyear,total</p></li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;prices&quot;</span><span class="p">:{</span>
+        <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span><span class="mf">2.1</span><span class="p">,</span>
+        <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span><span class="mf">2.11</span><span class="p">,</span>
+        <span class="o">...</span>
+        <span class="s2">&quot;2021-10-19&quot;</span><span class="p">:</span><span class="mf">2.21</span><span class="p">,</span>
+        <span class="s2">&quot;2021-10-20&quot;</span><span class="p">:</span><span class="mf">2.2</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;benchmark&quot;</span><span class="p">:{</span>
+        <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span><span class="mf">2.1</span><span class="p">,</span>
+        <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span><span class="mf">2.11</span><span class="p">,</span>
+        <span class="o">...</span>
+        <span class="s2">&quot;2021-10-19&quot;</span><span class="p">:</span><span class="mf">2.21</span><span class="p">,</span>
+        <span class="s2">&quot;2021-10-20&quot;</span><span class="p">:</span><span class="mf">2.11</span>
+        <span class="p">},</span>
+    <span class="s2">&quot;indicators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span><span class="s2">&quot;returns&quot;</span><span class="p">,</span><span class="s2">&quot;cum_returns&quot;</span><span class="p">,</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span><span class="s2">&quot;ret_t&quot;</span><span class="p">,</span><span class="s2">&quot;ret_a&quot;</span><span class="p">,</span><span class="s2">&quot;vol_t&quot;</span><span class="p">,</span><span class="s2">&quot;vol_a&quot;</span><span class="p">,</span><span class="s2">&quot;mdd&quot;</span><span class="p">,</span><span class="s2">&quot;mdd_start&quot;</span><span class="p">,</span><span class="s2">&quot;mdd_end&quot;</span><span class="p">,</span><span class="s2">&quot;dd_history&quot;</span><span class="p">,</span><span class="s2">&quot;mdd_days&quot;</span><span class="p">,</span><span class="s2">&quot;mdd_recovery&quot;</span><span class="p">,</span><span class="s2">&quot;mdd_recovery_days&quot;</span><span class="p">,</span><span class="s2">&quot;mr_start&quot;</span><span class="p">,</span><span class="s2">&quot;mr_end&quot;</span><span class="p">,</span><span class="s2">&quot;mr_days&quot;</span><span class="p">,</span><span class="s2">&quot;rise_history&quot;</span><span class="p">,</span><span class="s2">&quot;mr_fall&quot;</span><span class="p">,</span><span class="s2">&quot;mr_falling_days&quot;</span><span class="p">,</span><span class="s2">&quot;sharpe&quot;</span><span class="p">,</span><span class="s2">&quot;calmar&quot;</span><span class="p">,</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;sortino&quot;</span><span class="p">,</span><span class="s2">&quot;beta&quot;</span><span class="p">,</span><span class="s2">&quot;treynor&quot;</span><span class="p">,</span><span class="s2">&quot;passive_influence_ratio&quot;</span><span class="p">,</span><span class="s2">&quot;active_influence_ratio&quot;</span><span class="p">,</span><span class="s2">&quot;downside_risk&quot;</span><span class="p">,</span><span class="s2">&quot;annual_downside_risk&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;fill_method&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;periods&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;active_influence_ratio&quot;</span><span class="p">:</span> <span class="mf">0.9995197534613831</span><span class="p">,</span>
+            <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">1.886186744602068</span><span class="p">,</span>
+            <span class="s2">&quot;annual_downside_risk&quot;</span><span class="p">:</span> <span class="mf">0.12104229100930051</span><span class="p">,</span>
+            <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mf">0.017747474135157634</span><span class="p">,</span>
+            <span class="s2">&quot;calmar&quot;</span><span class="p">:</span> <span class="mf">81.82732508437573</span><span class="p">,</span>
+            <span class="s2">&quot;cum_returns&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span> <span class="mf">0.004761904761904745</span><span class="p">,</span>
+                <span class="o">...</span>
+                <span class="s2">&quot;2021-10-19&quot;</span><span class="p">:</span> <span class="mf">0.05238095238095242</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-20&quot;</span><span class="p">:</span> <span class="mf">0.04761904761904767</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;dd_history&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="o">...</span>
+                <span class="s2">&quot;2021-10-19&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.01777777777777778</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-20&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.022222222222222143</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;downside_risk&quot;</span><span class="p">:</span> <span class="mf">0.007624947622193299</span><span class="p">,</span>
+            <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="mf">0.1502968137222486</span><span class="p">,</span>
+            <span class="s2">&quot;mdd&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.023255813953488302</span><span class="p">,</span>
+            <span class="s2">&quot;mdd_days&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">&quot;mdd_end&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-10-13&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mdd_recovery&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-10-15&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mdd_recovery_days&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;mdd_start&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-10-08&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mr_days&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">&quot;mr_end&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-10-18&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mr_fall&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+            <span class="s2">&quot;mr_falling_days&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+            <span class="s2">&quot;mr_start&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-10-13&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;passive_influence_ratio&quot;</span><span class="p">:</span> <span class="mf">0.00048024653861689206</span><span class="p">,</span>
+            <span class="s2">&quot;ret_a&quot;</span><span class="p">:</span> <span class="mf">1.9029610484738484</span><span class="p">,</span>
+            <span class="s2">&quot;ret_t&quot;</span><span class="p">:</span> <span class="mf">0.04761904761904767</span><span class="p">,</span>
+            <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span> <span class="mf">0.004761904761904745</span><span class="p">,</span>
+                <span class="o">...</span>
+                <span class="s2">&quot;2021-10-19&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.01777777777777778</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-20&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.004524886877827927</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;rise_history&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span> <span class="mf">0.004761904761904745</span><span class="p">,</span>
+                <span class="o">...</span>
+                <span class="s2">&quot;2021-10-19&quot;</span><span class="p">:</span> <span class="mf">0.05238095238095242</span><span class="p">,</span>
+                <span class="s2">&quot;2021-10-20&quot;</span><span class="p">:</span> <span class="mf">0.04761904761904767</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;sharpe&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">10.669710423372274</span><span class="p">,</span>
+            <span class="s2">&quot;sortino&quot;</span><span class="p">:</span> <span class="mf">8.935107877824755</span><span class="p">,</span>
+            <span class="s2">&quot;treynor&quot;</span><span class="p">:</span> <span class="mf">60.93971005173415</span><span class="p">,</span>
+            <span class="s2">&quot;vol_a&quot;</span><span class="p">:</span> <span class="mf">0.2515039270582849</span><span class="p">,</span>
+            <span class="s2">&quot;vol_t&quot;</span><span class="p">:</span> <span class="mf">0.015843258208389294</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1641459728</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--quant-indicator-simulator">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/quant/indicator/simulator</span></span><a class="headerlink" href="#post--quant-indicator-simulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>蒙特卡洛模拟.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prices</strong> – list
+Fund net value sequence</p></li>
+<li><p><strong>method</strong> – str
+预测方法,支持bootstrap</p></li>
+<li><p><strong>T</strong> – int, optional
+预测长度</p></li>
+<li><p><strong>percentile</strong> – list, optional
+预测概率分布</p></li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;prices&quot;</span><span class="p">:[</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">2.11</span><span class="p">,</span><span class="mf">2.12</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">2.11</span><span class="p">,</span><span class="mf">2.15</span><span class="p">,</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">2.21</span><span class="p">,</span><span class="mf">2.25</span><span class="p">,</span><span class="mf">2.21</span><span class="p">,</span><span class="mf">2.24</span><span class="p">],</span>
+    <span class="s2">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;bootstrap&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;T&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+    <span class="s2">&quot;percentile&quot;</span><span class="p">:[</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.75</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;25%&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mf">2.2445248868778283</span><span class="p">,</span>
+            <span class="o">...</span>
+            <span class="mf">2.2820424115483684</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;50%&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mf">2.2447393364928914</span><span class="p">,</span>
+            <span class="o">...</span>
+            <span class="mf">2.309158341804592</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;75%&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mf">2.257777777777778</span><span class="p">,</span>
+            <span class="o">...</span>
+            <span class="mf">2.330502040534264</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1641902371</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="http post">
+<dt class="sig sig-object http" id="post--quant-indicator-windows">
+<span class="sig-name descname"><span class="pre">POST</span> </span><span class="sig-name descname"><span class="pre">/quant/indicator/windows</span></span><a class="headerlink" href="#post--quant-indicator-windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>窗口日历金融指标</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prices</strong> – dict
+资产净值序列，其中支持多资产批量计算</p></li>
+<li><p><strong>window</strong> – str
+窗口定义，支持D,W,M,Y格式以及7D格式，其中W按每周5划分，M按月底划分</p></li>
+<li><p><strong>indicators</strong> – <p>list
+指标列表,支持:</p>
+<ul>
+<li><p>returns: 区间累计收益率</p></li>
+<li><p>winrate: 区间胜率</p></li>
+<li><p>longest_win_period: 最长连续正收益</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;prices&quot;</span><span class="p">:{</span>
+        <span class="s2">&quot;001001&quot;</span><span class="p">:{</span>
+        <span class="s2">&quot;2021-09-30&quot;</span><span class="p">:</span><span class="mf">2.1</span><span class="p">,</span>
+        <span class="s2">&quot;2021-10-07&quot;</span><span class="p">:</span><span class="mf">2.11</span><span class="p">,</span>
+        <span class="o">...</span>
+        <span class="s2">&quot;2021-10-25&quot;</span><span class="p">:</span><span class="mf">2.25</span><span class="p">,</span>
+        <span class="s2">&quot;2021-11-20&quot;</span><span class="p">:</span><span class="mf">2.30</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;indicators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;returns&quot;</span><span class="p">,</span><span class="s2">&quot;winrate&quot;</span><span class="p">,</span><span class="s2">&quot;longest_win_period&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;window&quot;</span><span class="p">:</span> <span class="s2">&quot;2W&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>json
+windows的个数会大于returns 1个，windows代表窗口的位置，n个窗口位置夹着n-1个窗口</p>
+</dd>
+</dl>
+<ul>
+<li><p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;longest_win_period&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;001001&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-11-20&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;period&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-09-30&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;returns&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;001001&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="mf">0.0</span><span class="p">,</span>
+                <span class="mf">0.05238095238095242</span><span class="p">,</span>
+                <span class="mf">0.018099547511312153</span><span class="p">,</span>
+                <span class="mf">0.0</span><span class="p">,</span>
+                <span class="mf">0.022222222222222143</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;windows&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;2021-09-30&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-10-01&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-10-15&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-10-29&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-11-12&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2021-11-20&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;winrate&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;001001&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="mi">1641903323</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">NCF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NCF.html">NCF package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
+<p>Please contact <a class="reference external" href="mailto:sunxin&#37;&#52;&#48;newbanker&#46;cn">sunxin<span>&#64;</span>newbanker<span>&#46;</span>cn</a>, <a class="reference external" href="mailto:xuedashan&#37;&#52;&#48;newbanker&#46;cn">xuedashan<span>&#64;</span>newbanker<span>&#46;</span>cn</a> for support.</p>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>To build this documentation requires <cite>sphinx</cite></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sh</span> <span class="n">build</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to NCF’s documentation!</a><ul>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a></li>
+<li><a class="reference internal" href="#source-location">Source location</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#restful-api">RESTful API</a></li>
+<li><a class="reference internal" href="#api">API</a></li>
+<li><a class="reference internal" href="#support">Support</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="next chapter">NCF</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="NCF"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">financial library 1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to NCF’s documentation!</a></li>
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, newbanker.cn.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>
